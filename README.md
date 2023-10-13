@@ -1,4 +1,8 @@
-# XAI
+<p>
+  <img src="XAI.jpg" alt="xai" align="center">
+</p>
+
+## Index
 Explanable AI 
 
 TME de Guillaume FAURE et Garance LUCAS
