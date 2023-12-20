@@ -1,0 +1,594 @@
+Auteur.ice.s : FAURE Guillaume & LUCAS Garance
+
+
+TME11 XAI - Exercices Abduction
+
+
+
+Exercice 1:
+
+1. Representation 
+
+cnf(t,axiom,[vient(X),-libre(X),-motive(X)]).
+cnf(t,axiom,[libre(X),autreRdv(X),travail(X)]).
+cnf(t,axiom,[-libre(X),-autreRdv(X)]).
+cnf(t,axiom,[-libre(X),-travail(X)]).
+cnf(t,axiom,[motive(X),-ennui(X),autreRdv(X)]).
+cnf(t,axiom,[motive(X),-vient(Y),-vient(Z),-ami(X,Y),-ami(X,Z),eq(Y,Z)]).
+cnf(t,axiom,[-motive(X),-vient(Y),-deteste(X,Y)]).
+
+
+
+2. Deduction
+
+(a)
+
+cnf(f,top_clause,[ami(a,c)]).
+cnf(f,top_clause,[ami(c,a)]).
+cnf(f,top_clause,[ami(a,b)]).
+cnf(f,top_clause,[ami(c,b)]).
+cnf(f,top_clause,[ami(d,b)]).
+cnf(f,top_clause,[ami(d,a)]).
+cnf(f,top_clause,[ami(e,a)]).
+cnf(f,top_clause,[ami(e,c)]).
+cnf(f,top_clause,[motive(b)]).
+cnf(f,top_clause,[libre(b)]).
+cnf(f,top_clause,[libre(c)]).
+cnf(f,top_clause,[libre(d)]).
+cnf(f,top_clause,[-travail(a)]).
+cnf(f,top_clause,[-autreRdv(a)]).
+cnf(f,top_clause,[travail(e)]).
+cnf(f,top_clause,[ennui(c)]).
+cnf(f,top_clause,[eq(X,X)]).
+cnf(f,top_clause,[-eq(a,b)]).
+cnf(f,top_clause,[-eq(a,c)]).
+cnf(f,top_clause,[-eq(a,d)]).
+cnf(f,top_clause,[-eq(a,e)]).
+cnf(f,top_clause,[-eq(b,a)]).
+cnf(f,top_clause,[-eq(b,c)]).
+cnf(f,top_clause,[-eq(b,d)]).
+cnf(f,top_clause,[-eq(b,e)]).
+cnf(f,top_clause,[-eq(c,a)]).
+cnf(f,top_clause,[-eq(c,b)]).
+cnf(f,top_clause,[-eq(c,d)]).
+cnf(f,top_clause,[-eq(c,e)]).
+cnf(f,top_clause,[-eq(d,a)]).
+cnf(f,top_clause,[-eq(d,b)]).
+cnf(f,top_clause,[-eq(d,c)]).
+cnf(f,top_clause,[-eq(d,e)]).
+cnf(f,top_clause,[-eq(e,a)]).
+cnf(f,top_clause,[-eq(e,b)]).
+cnf(f,top_clause,[-eq(e,c)]).
+cnf(f,top_clause,[-eq(e,d)]).
+
+
+(b)
+
+Champ de production:
+pv([vient(_),-vient(_)]<=1).
+
+
+Resultats du solveur SOlAR: 
+4 FOUND CONSEQUENCES
+[+vient(c)]
+[+vient(b)]
+[+vient(a)]
+[+vient(d)]
+
+
+Clauses utilisées:
+USED CLAUSES:
+[+ennui(c)]
+[-ennui(c), +motive(c), +autreRdv(c)]
+[-motive(c), +vient(c), -libre(c)]
+[+libre(c)]
+[-autreRdv(c), -libre(c)]
+[+libre(c)]
+
+[+vient(b)]
+
+USED CLAUSES:
+[+libre(b)]
+[-libre(b), +vient(b), -motive(b)]
+[+motive(b)]
+
+[+vient(a)]
+
+USED CLAUSES:
+[-eq(c,b)]
+[+eq(c,b), +motive(a), -vient(c), -vient(b), -ami(a,c), -ami(a,b)]
+[-motive(a), +vient(a), -libre(a)]
+[+libre(a), +autreRdv(a), +travail(a)]
+[-autreRdv(a)]
+[-travail(a)]
+[+vient(c), -motive(c), -libre(c)]
+[+motive(c), -ennui(c), +autreRdv(c)]
+[+ennui(c)]
+[-autreRdv(c), -libre(c)]
+[+libre(c)]
+[+libre(c)]
+[+vient(b), -motive(b), -libre(b)]
+[+motive(b)]
+[+libre(b)]
+[+ami(a,c)]
+[+ami(a,b)]
+
+[+vient(d)]
+
+USED CLAUSES:
+[-eq(c,b)]
+[+eq(c,b), +motive(a), -vient(c), -vient(b), -ami(a,c), -ami(a,b)]
+[-motive(a), +vient(a), -libre(a)]
+[-vient(a), +motive(d), -vient(b), -ami(d,a), -ami(d,b), +eq(a,b)]
+[-motive(d), +vient(d), -libre(d)]
+[+libre(d)]
+[+vient(b), -motive(b), -libre(b)]
+[+motive(b)]
+[+libre(b)]
+[+ami(d,a)]
+[+ami(d,b)]
+[-eq(a,b)]
+[+libre(a), +autreRdv(a), +travail(a)]
+[-autreRdv(a)]
+[-travail(a)]
+[+vient(c), -motive(c), -libre(c)]
+[+motive(c), -ennui(c), +autreRdv(c)]
+[+ennui(c)]
+[-autreRdv(c), -libre(c)]
+[+libre(c)]
+[+libre(c)]
+[+vient(b), -motive(b), -libre(b)]
+[+motive(b)]
+[+libre(b)]
+[+ami(a,c)]
+[+ami(a,b)]
+
+
+Arbre de SOL-résolution: 
+
+PROOF:
+(0/10 nodes)
+root @1
+ + +ennui(c) 1st (ext) @2
+   + -ennui(c) (ext target)
+   + +motive(c) 1st (ext) @3
+   | + -motive(c) (ext target)
+   | + +vient(c) 1st (skip) @4
+   | + -libre(c) 1st (unit axiom) @5
+   + +autreRdv(c) 1st (ext) @6
+     + -autreRdv(c) (ext target)
+     + -libre(c) 1st (unit axiom) <subgoal> @7
+
+[+vient(b)]
+
+PROOF:
+(0/5 nodes)
+root @1
+ + +libre(b) 1st (ext) @2
+   + -libre(b) (ext target)
+   + +vient(b) 1st (skip) @3
+   + -motive(b) 1st (unit axiom) <subgoal> @4
+
+[+vient(a)]
+
+PROOF:
+(0/26 nodes)
+root @1
+ + -eq(c,b) 1st (ext) @2
+   + +eq(c,b) (ext target)
+   + +motive(a) 1st (ext) @3
+   | + -motive(a) (ext target)
+   | + +vient(a) 1st (skip) @4
+   | + -libre(a) 1st (ext) @5
+   |   + +libre(a) (ext target)
+   |   + +autreRdv(a) 1st (ext) @6
+   |   | + -autreRdv(a) (ext target)
+   |   + +travail(a) 1st (unit axiom) @7
+   + -vient(c) 1st (ext) @9
+   | + +vient(c) (ext target)
+   | + -motive(c) 1st (ext) @10
+   | | + +motive(c) (ext target)
+   | | + -ennui(c) 1st (unit axiom) @11
+   | | + +autreRdv(c) 1st (ext) @12
+   | |   + -autreRdv(c) (ext target)
+   | |   + -libre(c) 1st (unit axiom) @13
+   | + -libre(c) 1st (unit axiom) @14
+   + -vient(b) 1st (ext) @16
+   | + +vient(b) (ext target)
+   | + -motive(b) 1st (unit axiom) @17
+   | + -libre(b) 1st (unit axiom) @18
+   + -ami(a,c) 1st (unit axiom) @19
+   + -ami(a,b) 1st (unit axiom) <subgoal> @20
+
+[+vient(d)]
+
+PROOF:
+(0/40 nodes)
+root @1
+ + -eq(c,b) 1st (ext) @2
+   + +eq(c,b) (ext target)
+   + +motive(a) 1st (ext) @3
+   | + -motive(a) (ext target)
+   | + +vient(a) 1st (ext) @4
+   | | + -vient(a) (ext target)
+   | | + +motive(d) 1st (ext) @5
+   | | | + -motive(d) (ext target)
+   | | | + +vient(d) 1st (skip) @6
+   | | | + -libre(d) 1st (ext) @7
+   | | |   + +libre(d) (ext target)
+   | | + -vient(b) 1st (ext) @8
+   | | | + +vient(b) (ext target)
+   | | | + -motive(b) 1st (ext) @9
+   | | | | + +motive(b) (ext target)
+   | | | + -libre(b) 1st (unit axiom) @10
+   | | + -ami(d,a) 1st (ext) @11
+   | | | + +ami(d,a) (ext target)
+   | | + -ami(d,b) 1st (unit axiom) @12
+   | | + +eq(a,b) 1st (unit axiom) @13
+   | + -libre(a) 1st (ext) @15
+   |   + +libre(a) (ext target)
+   |   + +autreRdv(a) 1st (unit axiom) @16
+   |   + +travail(a) 1st (unit axiom) @17
+   + -vient(c) 1st (ext) @19
+   | + +vient(c) (ext target)
+   | + -motive(c) 1st (ext) @20
+   | | + +motive(c) (ext target)
+   | | + -ennui(c) 1st (unit axiom) @21
+   | | + +autreRdv(c) 1st (ext) @22
+   | |   + -autreRdv(c) (ext target)
+   | |   + -libre(c) 1st (unit axiom) @23
+   | + -libre(c) 1st (unit axiom) @24
+   + -vient(b) 1st (ext) @26
+   | + +vient(b) (ext target)
+   | + -motive(b) 1st (unit axiom) @27
+   | + -libre(b) 1st (unit axiom) @28
+   + -ami(a,c) 1st (unit axiom) @29
+   + -ami(a,b) 1st (unit axiom) <subgoal> @30
+
+
+
+Explication pour b:
+
+PROOF:
+(0/5 nodes)
+root @1
+ + +libre(b) 1st (ext) @2  # on a libre(b) en top clause donc deduction depuis la racine
+  			   # l'algorithme utilise la clause cnf(t,axiom,[vient(X),-libre(X),-motive(X)]).
+   + -libre(b) (ext target)   # fin de la branche - contradiction avec parent
+   + +vient(b) 1st (skip) @3  # potentielle solution que l'on développe pas - skip
+   + -motive(b) 1st (unit axiom) <subgoal> @4  # feuille car axiome 
+
+On déduit que b vient a la fete. 
+
+
+(c)
+
+cnf(f,top_clause,[deteste(c,d)]).
+
+L'algorithme retourne INSATISFIABLE. 
+Carc(T U F2 U F3) = {ø}
+
+On peut en conclure que la nouvelle top clause rend la théorie fausse. 
+Avec la commande -v on observe que le soldeur a essayé les 12979 arbres. 
+fails        : 12979
+
+Claire déteste Didier => Claire ne vient pas si Didier vient 
+
+
+3. Abduction
+
+Top clause = negation de l'hypothèse H
+
+(a)
+
+Formalisation comme un problème d'abduction:
+
+cnf(f,top_clause,[-vient(a)]).
+pf([-ami(,),-ennui(_)]<=4).
+
+
+Le solveur trouve 6 solutions:
+
+SATISFIABLE
+
+6 FOUND CONSEQUENCES
+[-ami(a,b), -ami(a,e), -ennui(e)]
+
+USED CLAUSES:
+[-vient(a)]
+[+vient(a), -motive(a), -libre(a)]
+[+motive(a), -ami(a,b), -ami(a,e), -vient(b), -vient(e), +eq(b,e)]
+[+vient(b)]
+[+vient(e), -motive(e), -libre(e)]
+[+motive(e), -ennui(e), +autreRdv(e)]
+[-autreRdv(e), -libre(e)]
+[+libre(e)]
+[+libre(e)]
+[-eq(b,e)]
+[+libre(a)]
+
+[-ami(a,b), -ami(a,c)]
+
+USED CLAUSES:
+[-vient(a)]
+[+vient(a), -motive(a), -libre(a)]
+[+motive(a), -ami(a,b), -ami(a,c), -vient(b), -vient(c), +eq(b,c)]
+[+vient(b)]
+[+vient(c)]
+[-eq(b,c)]
+[+libre(a)]
+
+[-ami(a,c), -ami(a,e), -ami(e,b), -ami(e,c)]
+
+USED CLAUSES:
+[-vient(a)]
+[+vient(a), -motive(a), -libre(a)]
+[+motive(a), -ami(a,c), -ami(a,e), -vient(c), -vient(e), +eq(c,e)]
+[+vient(c)]
+[+vient(e), -motive(e), -libre(e)]
+[+motive(e), -ami(e,b), -ami(e,c), -vient(b), -vient(c), +eq(b,c)]
+[+vient(b)]
+[+vient(c)]
+[-eq(b,c)]
+[+libre(e)]
+[-eq(c,e)]
+[+libre(a)]
+
+[-ami(a,c), -ami(a,e), -ennui(e)]
+
+USED CLAUSES:
+[-vient(a)]
+[+vient(a), -motive(a), -libre(a)]
+[+motive(a), -ami(a,c), -ami(a,e), -vient(c), -vient(e), +eq(c,e)]
+[+vient(c)]
+[+vient(e), -motive(e), -libre(e)]
+[+motive(e), -ennui(e), +autreRdv(e)]
+[-autreRdv(e), -libre(e)]
+[+libre(e)]
+[+libre(e)]
+[-eq(c,e)]
+[+libre(a)]
+
+[-ami(a,b), -ami(a,e), -ami(e,b), -ami(e,c)]
+
+USED CLAUSES:
+[-vient(a)]
+[+vient(a), -motive(a), -libre(a)]
+[+motive(a), -ami(a,b), -ami(a,e), -vient(b), -vient(e), +eq(b,e)]
+[+vient(b)]
+[+vient(e), -motive(e), -libre(e)]
+[+motive(e), -ami(e,b), -ami(e,c), -vient(b), -vient(c), +eq(b,c)]
+[+vient(b)]
+[+vient(c)]
+[-eq(b,c)]
+[+libre(e)]
+[-eq(b,e)]
+[+libre(a)]
+
+[-ennui(a)]
+
+USED CLAUSES:
+[-vient(a)]
+[+vient(a), -motive(a), -libre(a)]
+[+motive(a), -ennui(a), +autreRdv(a)]
+[-autreRdv(a), -libre(a)]
+[+libre(a)]
+[+libre(a)]
+
+
+(b)
+
+o: vient(a)
+-o: -vient(a)
+
+
+Une hypothese :
+-H: [-ami(a,b), -ami(a,c)]
+H: [ami(a,b)]
+    [ami(a,c)]
+
+Il y avait d'autres hypothèses (nous en avons choisi celle au-dessus arbitrairement pour la verification):
+[-ami(a,b), -ami(a,e), -ennui(e)]
+[-ami(a,c), -ami(a,e), -ami(e,b), -ami(e,c)]
+[-ami(a,c), -ami(a,e), -ennui(e)]
+[-ami(a,b), -ami(a,e), -ami(e,b), -ami(e,c)]
+[-ennui(a)]
+
+Nous avons vérifié que c'est bien un newcarc en réutilisant les axiomes precedents et en ajoutant:
+cnf(f,top_clause,[ami(a,b)]).
+cnf(f,top_clause,[ami(a,c)]).
+pf([vient(), -vient()]<=1).
+
+
+Avec le solveur: 
+
+1 FOUND CONSEQUENCES
+[+vient(a)]
+
+USED CLAUSES:
+[+ami(a,c)]
+[-ami(a,c), +motive(a), -ami(a,b), -vient(c), -vient(b), +eq(c,b)]
+[-motive(a), +vient(a), -libre(a)]
+[+libre(a)]
+[+ami(a,b)]
+[+vient(c)]
+[+vient(b)]
+[-eq(c,b)]
+
+On retrouve comme consequence le fait que Alban vienne lorsque l'on execute l'algorithme avec notre hypothèse H, donc la verification est effectuée. 
+
+
+(c)
+
+-> H1=ennui(a)
+
+Avec le solveur on obtient bien la consequence que Alban vient:
+
+1 FOUND CONSEQUENCES
+[+vient(a)]
+
+USED CLAUSES:
+[+ennui(a)]
+[-ennui(a), +autreRdv(a), +motive(a)]
+[-autreRdv(a), -libre(a)]
+[+libre(a)]
+[-motive(a), +vient(a), -libre(a)]
+[+libre(a)]
+
+
+-> Nous avons deja prouvé dans la question précédente (b) que H2=ami(a,b) ∧ ami(a,c) est une hypothèse abductive du problème. 
+
+
+(d) 
+
+Les véritables nouvelles consequences sont: 
+C1, C2, C3, C4, C5, C6 et C7.
+
+On en déduit donc que l'ensemble des hypothèses abductives du problème sont:
+cnf(f,top_clause,[ennui(a)]).
+
+cnf(f,top_clause,[ami(a,b)]).
+cnf(f,top_clause,[ami(a,c)]).
+
+cnf(f,top_clause,[ami(a,d)]).
+cnf(f,top_clause,[ami(a,c)]).
+cnf(f,top_clause,[ennui(d)]).
+
+cnf(f,top_clause,[ami(a,d)]).
+cnf(f,top_clause,[ami(a,e)]).
+cnf(f,top_clause,[ennui(d)]).
+cnf(f,top_clause,[ennui(e)]).
+
+cnf(f,top_clause,[ami(a,c)]).
+cnf(f,top_clause,[ami(a,e)]).
+cnf(f,top_clause,[ennui(e)]).
+
+cnf(f,top_clause,[ami(a,b)]).
+cnf(f,top_clause,[ami(a,e)]).
+cnf(f,top_clause,[ennui(e)]).
+
+cnf(f,top_clause,[ami(a,d)]).
+cnf(f,top_clause,[ami(a,b)]).
+cnf(f,top_clause,[ennui(d)]).
+
+
+
+
+
+
+Exercice 2:
+
+1.
+
+cnf(t,axiom,[-a(X, grippe) ∨ fievre(X)]).
+cnf(t,axiom,[-a(X, angine) ∨ fievre(X)]).
+cnf(t,axiom,[-a(X, bronchite) ∨ fievre(X)]).
+cnf(t,axiom,[-a(X, simplerhume) ∨ mieux(X)]).
+cnf(t,axiom,[-a(X, angine) ∨ -antibio(X) ∨ mieux(X)]).
+cnf(t,axiom,[-a(X, bronchite) ∨ -antibio(X) ∨ mieux(X)]).
+cnf(t,axiom,[-a(X, bronchite) ∨ toux(X)]).
+cnf(t,axiom,[diff(grippe, simplerhume)]).
+cnf(t,axiom,[diff(angine, simplerhume)]).
+cnf(t,axiom,[diff(bronchite, simplerhume)]).
+cnf(t,axiom,[(-a(X, simplerhume) ∨ -diff(Y, simplerhume) ∨ -a(X, Y))]).
+cnf(t,axiom,[-toux(p)]).
+cnf(t,axiom,[antibio(p)]).
+
+
+2.
+
+Clause_1 : ¬a(X, grippe) ∨ fievre(X)
+Clause_2 : ¬a(X, angine) ∨ fievre(X)
+Clause_3 : ¬a(X, bronchite) ∨ fievre(X)
+Clause_4 : ¬a(X, simplerhume) ∨ mieux(X, lendemain)
+Clause_5 : ¬a(X, angine) ∨ ¬antibio(X) ∨ mieux(X, lendemain)
+Clause_6 : ¬a(X, bronchite) ∨ ¬antibio(X) ∨ mieux(X, lendemain)
+Clause_7 : ¬a(X, bronchite) ∨ toux(X)
+Clause_8 : ¬diff(grippe, simplerhume) ∨ ¬diff(angine, simplerhume) ∨ ¬diff(bronchite, simplerhume)
+Clause_9 : ¬a(X, simplerhume) ∨ ¬(∃Y (diff(Y, simplerhume) ∧ a(X, Y)))
+Clause_10: ¬toux(p)
+Clause_11: antibio(p)
+
+Σ={Clause_1,Clause_2,…,Clause_11}
+
+
+3.
+
+12 CHARACTERISTIC CLAUSES
+[+mieux(p), -a(p,simplerhume)]
+
+USED CLAUSES:
+[+mieux(p), -a(p,simplerhume)]
+
+[+diff(angine,simplerhume)]
+
+USED CLAUSES:
+[+diff(angine,simplerhume)]
+
+[-a(p,simplerhume), -a(p,angine)]
+
+USED CLAUSES:
+[-a(p,simplerhume), -a(p,angine), -diff(angine,simplerhume)]
+[+diff(angine,simplerhume)]
+
+[-a(p,simplerhume), -a(p,grippe)]
+
+USED CLAUSES:
+[-a(p,simplerhume), -a(p,grippe), -diff(grippe,simplerhume)]
+[+diff(grippe,simplerhume)]
+
+[+diff(bronchite,simplerhume)]
+
+USED CLAUSES:
+[+diff(bronchite,simplerhume)]
+
+[-a(p,bronchite)]
+
+USED CLAUSES:
+[-a(p,bronchite), +toux(p)]
+[-toux(p)]
+
+[+mieux(p), -a(p,angine)]
+
+USED CLAUSES:
+[+mieux(p), -a(p,angine), -antibio(p)]
+[+antibio(p)]
+
+[+antibio(p)]
+
+USED CLAUSES:
+[+antibio(p)]
+
+[-a(p,simplerhume), -a(p,_0), -diff(_0,simplerhume)]
+
+USED CLAUSES:
+[-a(p,simplerhume), -a(p,_3), -diff(_3,simplerhume)]
+
+[+diff(grippe,simplerhume)]
+
+USED CLAUSES:
+[+diff(grippe,simplerhume)]
+
+[-toux(p)]
+
+USED CLAUSES:
+[-toux(p)]
+
+[-a(p,simplerhume), -diff(simplerhume,simplerhume)]
+
+USED CLAUSES:
+[-a(p,simplerhume), -a(p,simplerhume), -diff(simplerhume,simplerhume)]
+
+
+4.
+
+
+5.
+
+
+Ajouter O1 ∧ O2 à Σ : Σ'= Σ ∪ {fievre(p), mieux(p)}
+Appliquer la méthode de résolution inversée pour obtenir les conséquences.
+
+Remarque : Si D1 est une conséquence de Σ ∪ {C1} et que D2 est une conséquence de Σ ∪ {C2}, alors D1 ∨ D2 est une conséquence de Σ ∪ {C1 ∨ C2}. Utilisez cette propriété pour combiner les conséquences obtenues à partir de O1 et O2.
+
+
