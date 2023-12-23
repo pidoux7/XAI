@@ -5,7 +5,7 @@ TME11 XAI - Exercices Abduction
 
 
 
-Exercice 1:
+EXERCICE 1:
 
 1. Representation 
 
@@ -144,6 +144,7 @@ USED CLAUSES:
 [+ami(a,b)]
 
 
+
 Arbre de SOL-résolution: 
 
 PROOF:
@@ -247,6 +248,7 @@ root @1
 
 
 
+
 Explication pour b:
 
 PROOF:
@@ -273,6 +275,8 @@ Avec la commande -v on observe que le soldeur a essayé les 12979 arbres.
 fails        : 12979
 
 Claire déteste Didier => Claire ne vient pas si Didier vient 
+
+
 
 
 3. Abduction
@@ -376,6 +380,7 @@ USED CLAUSES:
 [+libre(a)]
 
 
+
 (b)
 
 o: vient(a)
@@ -400,6 +405,7 @@ cnf(f,top_clause,[ami(a,c)]).
 pf([vient(), -vient()]<=1).
 
 
+
 Avec le solveur: 
 
 1 FOUND CONSEQUENCES
@@ -416,6 +422,7 @@ USED CLAUSES:
 [-eq(c,b)]
 
 On retrouve comme consequence le fait que Alban vienne lorsque l'on execute l'algorithme avec notre hypothèse H, donc la verification est effectuée. 
+
 
 
 (c)
@@ -436,7 +443,8 @@ USED CLAUSES:
 [+libre(a)]
 
 
--> Nous avons deja prouvé dans la question précédente (b) que H2=ami(a,b) ∧ ami(a,c) est une hypothèse abductive du problème. 
+-> Nous avons déjà prouvé dans la question précédente (b) que H2=ami(a,b) ∧ ami(a,c) est une hypothèse abductive du problème. 
+
 
 
 (d) 
@@ -476,7 +484,9 @@ cnf(f,top_clause,[ennui(d)]).
 
 
 
-Exercice 2:
+
+
+EXERCICE 2:
 
 
 1. Traduction des phrases en règles ou faits en logique des prédicats:
@@ -536,35 +546,221 @@ Clause_10 : cnf(t,axiom,[antibio(p)]).
 Σ={Clause_1,Clause_2,…,Clause_10}
 
 
+
+
 3.
 
+hypothese trouvée avant vérification : 
+
+[a(p,angine)]
+
+[a(p,bronchite)]
+
+[a(p,grippe)]
+
+
+Après verification: on ne retient que les hypthèses suivantes : [a(p,angine)] et [a(p,grippe)].
+En effet voici les résultats detaillés:
+
+
+Résultat test pour angine:
+
+SATISFIABLE
+1 FOUND CONSEQUENCES
+[+fievre(p)]
+
 USED CLAUSES:
-[-fievre(p)]
-[+fievre(p), -a(p,angine)]
+[+a(p,angine)]
+[-a(p,angine), +fievre(p)]
 
-[-a(p,bronchite)]
+Ainsi on peut conclure que l'hypothèse cnf(t,top_clause,[a(p,angine)]) explique l'observation O1 : fievre(p).
+
+
+
+Résultat test pour bronchite:
+
+UNSATISFIABLE
 
 USED CLAUSES:
-[-fievre(p)]
-[+fievre(p), -a(p,bronchite)]
+[+a(p,bronchite)]
+[-a(p,bronchite), +toux(p)]
+[-toux(p)]
 
-[-a(p,grippe)]
+Ainsi on peut conclure que l'hypothèse cnf(t,top_clause,[a(p, bronchite)]) n'explique pas l'observation O1 : fievre(p).
+
+
+
+Résultat test pour grippe:
+
+SATISFIABLE
+
+1 FOUND CONSEQUENCES
+[+fievre(p)]
 
 USED CLAUSES:
-[-fievre(p)]
-[+fievre(p), -a(p,grippe)]
+[+a(p,grippe)]
+[-a(p,grippe), +fievre(p)]
+
+Ainsi on peut conclure que l'hypothèse cnf(t,top_clause,[a(p, grippe)]) explique l'observation O1 : fievre(p).
+
 
 
 
 4.
 
+hypothese trouvée avant vérification : 
+
+[a(p,angine)]
+
+[a(p,bronchite)]
+
+[a(p,mieux)]
+
+[-a(p,simplerhume)]
+
+
+Après verification: on ne retient que les hypthèses suivantes : [a(p,angine)] et [-a(p,simplerhume)]
+En effet voici les résultats detaillés:
+
+
+Résultat test pour angine:
+
+SATISFIABLE
+
+1 FOUND CONSEQUENCES
+[+mieux(p)]
+
+USED CLAUSES:
+[+a(p,angine)]
+[-a(p,angine), +mieux(p), -antibio(p)]
+[+antibio(p)]
+
+
+
+Résultat test pour simplerhume:
+
+SATISFIABLE
+
+1 FOUND CONSEQUENCES
+[+mieux(p)]
+
+USED CLAUSES:
+[+a(p,simplerhume)]
+[-a(p,simplerhume), +mieux(p)]
+
+Pour bronchite cela donne insatisfiable, et pour mieux(p) cela ne peut pas être une hypothèse d'elle-même.
+
+
 
 5.
 
+Méthode:
+    - Ajouter -(O1 ∧ O2) à Σ : Σ'= Σ ∪ {fievre(p), mieux(p)}
+    - Appliquer la méthode de résolution inversée pour obtenir les conséquences.
+        on obtient 5 conséquences inverses (H) : angine , grippe , simplerhume, bronchite et mieux
+    - Appliquer la methode de déduction à partir des hypothèses précédentes afin de vérifer leur appartenance à newcarc:
+        Les hypothese possibles sont Angine et Angine, Angine et simplerhume, grippe et simplerhume.
 
-Ajouter O1 ∧ O2 à Σ : Σ'= Σ ∪ {fievre(p), mieux(p)}
-Appliquer la méthode de résolution inversée pour obtenir les conséquences.
 
-Remarque : Si D1 est une conséquence de Σ ∪ {C1} et que D2 est une conséquence de Σ ∪ {C2}, alors D1 ∨ D2 est une conséquence de Σ ∪ {C1 ∨ C2}. Utilisez cette propriété pour combiner les conséquences obtenues à partir de O1 et O2.
+Remarque : Si D1 est une conséquence de Σ ∪ {C1} et que D2 est une conséquence de Σ ∪ {C2}, alors D1 ∨ D2 est une conséquence de Σ ∪ {C1 ∨ C2}. 
+Utilisez cette propriété pour combiner les conséquences obtenues à partir de O1 et O2.
+
+
+Avec l'autre raisonnement :
+
+avant verification:
+
+[a(p,angine)]
+
+[a(p,bronchite)]
+
+[a(p,grippe) et mieux(p)]
+
+[a(p,grippe) et a(p,simplerhume)]
+
+Après verification:
+
+[a(p,angine)] 
+
+[ a(p,grippe) et a(p,simplerhume)]
+
+
+
+
+
+
+Resultats test pour angine:
+
+SATISFIABLE
+2 FOUND CONSEQUENCES
+[+fievre(p)]
+
+USED CLAUSES:
+[+a(p,angine)]
+[-a(p,angine), +fievre(p)]
+
+[+mieux(p)]
+
+USED CLAUSES:
+[+a(p,angine)]
+[-a(p,angine), +mieux(p), -antibio(p)]
+[+antibio(p)]
+
+Pour angine on obtient satisfiable, ce qui est cohérent car angine est une hypothèse pour O1 et O2.
+
+
+
+
+Resultats test pour angine ET simplerhume:
+
+2 FOUND CONSEQUENCES
+[+fievre(p)]
+
+USED CLAUSES:
+[+a(p,angine)]
+[-a(p,angine), +fievre(p)]
+
+[+mieux(p)]
+
+USED CLAUSES:
+[+a(p,simplerhume)]
+[-a(p,simplerhume), +mieux(p)]
+
+Pour angine ET autre chose on obtient satisfiable, ce qui est cohérent avec la propriété évoquée dans l'énoncé et le fait que angine est une hypothèse pour O1 et O2.
+
+
+
+
+
+Resultats test pour bronchite:
+
+
+
+
+
+
+Resultats test pour simplerhume:
+
+
+
+
+
+
+Resultats test pour mieux:
+
+
+
+
+
+
+
+Resultats test pour grippe:
+
+
+
+
+
+
+
 
 
