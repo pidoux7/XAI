@@ -478,106 +478,82 @@ cnf(f,top_clause,[ennui(d)]).
 
 Exercice 2:
 
-1.
 
-cnf(t,axiom,[-a(X, grippe) ∨ fievre(X)]).
-cnf(t,axiom,[-a(X, angine) ∨ fievre(X)]).
-cnf(t,axiom,[-a(X, bronchite) ∨ fievre(X)]).
-cnf(t,axiom,[-a(X, simplerhume) ∨ mieux(X)]).
-cnf(t,axiom,[-a(X, angine) ∨ -antibio(X) ∨ mieux(X)]).
-cnf(t,axiom,[-a(X, bronchite) ∨ -antibio(X) ∨ mieux(X)]).
-cnf(t,axiom,[-a(X, bronchite) ∨ toux(X)]).
-cnf(t,axiom,[diff(grippe, simplerhume)]).
-cnf(t,axiom,[diff(angine, simplerhume)]).
-cnf(t,axiom,[diff(bronchite, simplerhume)]).
-cnf(t,axiom,[(-a(X, simplerhume) ∨ -diff(Y, simplerhume) ∨ -a(X, Y))]).
-cnf(t,axiom,[-toux(p)]).
-cnf(t,axiom,[antibio(p)]).
+1. Traduction des phrases en règles ou faits en logique des prédicats:
+
+(a) ∀ X, a(X, grippe) → fievre(X)
+    Quand une personne a une grippe, elle a de la fièvre.
+
+(b) ∀ X, a(X, angine) → fievre(X)
+    Quand une personne a une angine, elle a de la fièvre.
+
+(c) ∀ X, a(X, bronchite) → fievre(X)
+    Quand une personne a une bronchite, elle a de la fièvre.
+
+(d) ∀ X, a(X, simplerhume) → mieux(X)
+    Quand une personne a un simple rhume, elle va mieux le lendemain.
+
+(e) ∀ X, (a(X, angine) ∧ antibio(X)) → mieux(X)
+    Quand une personne a une angine et prend des antibiotiques, elle va mieux le lendemain.
+
+(f) ∀ X, (a(X, bronchite) ∧ antibio(X)) → mieux(X)
+    Quand une personne a une bronchite et prend des antibiotiques, elle va mieux le lendemain.
+
+(g) ∀ X, a(X, bronchite) → toux(X)
+    Quand une personne a une bronchite, elle a de la toux.
+
+(h) ∀ X, a(X, grippe) ∧ a(X, angine) ∧ a(X, bronchite) → ¬ a(X, simplerhume)
+    La grippe, l’angine et la bronchite ne sont pas des simples rhumes.
+
+(i) ∀ X, a(X, simplerhume) → ¬ ∃ Y, (a(X, Y) ∧ diff(Y, simplerhume))
+    Quand une personne a un simple rhume, c’est qu’elle n’a pas d’autres maladies.
+
+(j) ¬ toux(p)
+    Le patient p ne tousse pas.
+
+(k) antibio(p)
+    Le patient p prend des antibiotiques.
+
+
+
 
 
 2.
 
-Clause_1 : ¬a(X, grippe) ∨ fievre(X)
-Clause_2 : ¬a(X, angine) ∨ fievre(X)
-Clause_3 : ¬a(X, bronchite) ∨ fievre(X)
-Clause_4 : ¬a(X, simplerhume) ∨ mieux(X, lendemain)
-Clause_5 : ¬a(X, angine) ∨ ¬antibio(X) ∨ mieux(X, lendemain)
-Clause_6 : ¬a(X, bronchite) ∨ ¬antibio(X) ∨ mieux(X, lendemain)
-Clause_7 : ¬a(X, bronchite) ∨ toux(X)
-Clause_8 : ¬diff(grippe, simplerhume) ∨ ¬diff(angine, simplerhume) ∨ ¬diff(bronchite, simplerhume)
-Clause_9 : ¬a(X, simplerhume) ∨ ¬(∃Y (diff(Y, simplerhume) ∧ a(X, Y)))
-Clause_10: ¬toux(p)
-Clause_11: antibio(p)
+Clause_1 : cnf(t,axiom,[-a(X, grippe) ∨ fievre(X)]).
+Clause_2 : cnf(t,axiom,[-a(X, angine) ∨ fievre(X)]).
+Clause_3 : cnf(t,axiom,[-a(X, bronchite) ∨ fievre(X)]).
+Clause_4 : cnf(t,axiom,[-a(X, simplerhume) ∨ mieux(X)]).
+Clause_5 : cnf(t,axiom,[-a(X, angine) ∨ -antibio(X) ∨ mieux(X)]).
+Clause_6 : cnf(t,axiom,[-a(X, bronchite) ∨ -antibio(X) ∨ mieux(X)]).
+Clause_7 : cnf(t,axiom,[-a(X, bronchite) ∨ toux(X)]).
+Clause_7 : cnf(t,axiom,[-a(X, grippe),-a(X, angine),-a(X, bronchite),-a(simplerhume)]).
+Clause_8 : cnf(t,axiom,[(-a(X, simplerhume) ∨ -diff(Y, simplerhume) ∨ -a(X, Y))]).
+Clause_9 : cnf(t,axiom,[-toux(p)]).
+Clause_10 : cnf(t,axiom,[antibio(p)]).
 
-Σ={Clause_1,Clause_2,…,Clause_11}
+
+Σ={Clause_1,Clause_2,…,Clause_10}
 
 
 3.
 
-12 CHARACTERISTIC CLAUSES
-[+mieux(p), -a(p,simplerhume)]
-
 USED CLAUSES:
-[+mieux(p), -a(p,simplerhume)]
-
-[+diff(angine,simplerhume)]
-
-USED CLAUSES:
-[+diff(angine,simplerhume)]
-
-[-a(p,simplerhume), -a(p,angine)]
-
-USED CLAUSES:
-[-a(p,simplerhume), -a(p,angine), -diff(angine,simplerhume)]
-[+diff(angine,simplerhume)]
-
-[-a(p,simplerhume), -a(p,grippe)]
-
-USED CLAUSES:
-[-a(p,simplerhume), -a(p,grippe), -diff(grippe,simplerhume)]
-[+diff(grippe,simplerhume)]
-
-[+diff(bronchite,simplerhume)]
-
-USED CLAUSES:
-[+diff(bronchite,simplerhume)]
+[-fievre(p)]
+[+fievre(p), -a(p,angine)]
 
 [-a(p,bronchite)]
 
 USED CLAUSES:
-[-a(p,bronchite), +toux(p)]
-[-toux(p)]
+[-fievre(p)]
+[+fievre(p), -a(p,bronchite)]
 
-[+mieux(p), -a(p,angine)]
-
-USED CLAUSES:
-[+mieux(p), -a(p,angine), -antibio(p)]
-[+antibio(p)]
-
-[+antibio(p)]
+[-a(p,grippe)]
 
 USED CLAUSES:
-[+antibio(p)]
+[-fievre(p)]
+[+fievre(p), -a(p,grippe)]
 
-[-a(p,simplerhume), -a(p,_0), -diff(_0,simplerhume)]
-
-USED CLAUSES:
-[-a(p,simplerhume), -a(p,_3), -diff(_3,simplerhume)]
-
-[+diff(grippe,simplerhume)]
-
-USED CLAUSES:
-[+diff(grippe,simplerhume)]
-
-[-toux(p)]
-
-USED CLAUSES:
-[-toux(p)]
-
-[-a(p,simplerhume), -diff(simplerhume,simplerhume)]
-
-USED CLAUSES:
-[-a(p,simplerhume), -a(p,simplerhume), -diff(simplerhume,simplerhume)]
 
 
 4.
